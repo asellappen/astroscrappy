@@ -1,5 +1,7 @@
 language: python
-
+arch:
+    - ppc64le
+    - amd64
 # We need a full clone to make sure setuptools_scm works properly
 git:
     depth: false
