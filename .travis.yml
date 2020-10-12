@@ -1,7 +1,4 @@
 language: python
-arch:
-    - amd64
-    - ppc64le
 # We need a full clone to make sure setuptools_scm works properly
 git:
     depth: false
@@ -24,16 +21,26 @@ addons:
         packages:
             - graphviz
 
-
-stages:
-   # Do the style check and a single test job, don't proceed if it fails
-   - name: Initial tests
-   # Test docs, astropy dev, and without optional dependencies
-   - name: Comprehensive tests
-   # These will only run when cron is opted in
-   - name: Cron tests
-     if: type = cron
-
+jobs:
+  include:
+   stages:
+           # Do the style check and a single test job, don't proceed if it fails
+           - name: Initial tests
+           # Test docs, astropy dev, and without optional dependencies
+           - name: Comprehensive tests
+           # These will only run when cron is opted in
+           - name: Cron tests
+             if: type = cron
+             
+           - name: Initial tests
+             arch: ppc64le
+           # Test docs, astropy dev, and without optional dependencies
+           - name: Comprehensive tests
+             arch: ppc64le
+           # These will only run when cron is opted in
+           - name: Cron tests
+             arch: ppc64le
+             if: type = cron
 
 env:
     global:
